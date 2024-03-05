@@ -1,4 +1,4 @@
-# THM-Dreaming
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/7fb15d84-688a-4f2d-9874-1b785fc1456c)# THM-Dreaming
 ![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/5997701d-4379-41d2-b2bc-e2f97f37c4f4)
 
 
@@ -79,6 +79,68 @@ Opening the test.py, we found Lucien password
 We can now SSH to the target using lucien's credential. The flag is found under his home directory.
 
 ![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/49d3c69a-2c2d-4440-af22-a8cd8775df65)
+
+DEATH
+Using **sudo -l**, we see that Lucien can run a Python script as Death. It is know our job how to exploit this script to gain Death's shell
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/6bdd772a-4e5b-491d-b8de-cb39119fa926)
+
+The script in /opt seems to be identical with the script that we're going to exploit. However, we only have read acess, so let's skim its content to see what it does. 
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/7cbf69a6-ebaa-48fa-89a3-555fccee0317)
+
+First, a connection to the local mySQL database named 'library' was made. We can also see credentials of death, but the password was redacted.
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/339f952f-77c0-4721-97ad-69240cbbe5c2)
+
+Then the script fetches information from the 'dream' and the 'dreamer' column of the 'dreams' table.
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/5667a4d8-9866-4a42-88c2-4d4c7aeeb237)
+
+Finally, it echos a string concatenating the values. We can abuse this to inject shell commands into the database and get the executed under death. 
+
+
+Opening .bash_history in lucien's home directory. We found lucien's mysql password. 
+mysql -u lucien -p????????????????
+
+Using lucien's credential we were able to login. 
+Here's the content of the 'dreams' table:
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/577970a3-0247-4a98-8d48-9485d01fa63c)
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/c4fbcb5d-af7b-423c-96f7-cff091c397af)
+
+Using the ';' character, I was able to chain the echo command with the cat command to view death's flag. 
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/44be4445-b81b-4344-a53e-7a03fbe926ba)
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/2e5c2e0f-2a5a-4ba1-9f81-1630a8eb4c0d)
+
+Still, we still haven't gained death's shell. To do that, we copy /bin/bash to /tmp/bash and add a SUID bit. Therefore, we will have access to death's shell. 
+
+Return to MySQL, and injects the command. 
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/0f511983-4f1c-4f31-96c4-25fffc2f9690)
+
+Run the script again, and we have death's shell.
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/7f0500c8-6526-494e-aa38-734b3e016262)
+
+Remember the redacted password in getDreams.py in death's home dir? We can view it now. 
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/ee85ccc9-c82b-4774-86a5-243bde038271)
+
+Luckily, we can reuse the DB password to ssh to the target for more stable shell. 
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/bf278b4e-12f3-4d9b-884b-f9b40f5f76c7)
+
+
+
+
+MORPHEUS
+
+
+
+
 
 
 
