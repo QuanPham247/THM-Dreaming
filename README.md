@@ -1,4 +1,8 @@
 # THM-Dreaming
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/5997701d-4379-41d2-b2bc-e2f97f37c4f4)
+
+
+
 Personal attempt on THM CTF Challenge
 
 RECON 
@@ -54,8 +58,31 @@ PRIVILEGE ESCALATION
 
 ![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/eac83ba7-0d52-4a95-aa16-d7d46a750ad8)
 
-As you can see, www-data don't have read access to the flags so, in order to get the flags, we need to find ways to escalate to higher privileges. I am using [LinPeas]([url](https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh)https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh)
-Script is avi
+As you can see, www-data don't have read access to the flags so, in order to get the flags, we need to find ways to escalate to higher privileges. I am using [LinPeas](https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh)
+
+To transfer it to the target machine, we can use the manage files nav bar (under Pages). Then script will be available at /var/www/html/files/linpeas.sh
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/05e6436c-6894-4ba0-b302-fee782a6f0be)
+
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/6b71812c-f6a9-4f57-a5fc-2278f753f47d)
+
+Thanks to LinPEAS, we find some interesting files: 
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/6506e51b-dce4-4049-bf7b-ff6baf43a8f5)
+
+LUCIEN
+Opening the test.py, we found Lucien password
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/b131a147-6ccb-4ea0-9b44-329fd18df755)
+
+We can now SSH to the target using lucien's credential. The flag is found under his home directory.
+
+![image](https://github.com/QuanPham247/THM-Dreaming/assets/97132705/49d3c69a-2c2d-4440-af22-a8cd8775df65)
+
+
+
+
 
 
 
